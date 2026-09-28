@@ -11,7 +11,7 @@
 
     <h1>{{ thema.titel }}</h1>
 
-    <!-- Add Person -->
+    <!-- Add person -->
     <div class="card">
     <h2>1. Person hinzufügen</h2>
     <form method="post">
@@ -24,7 +24,7 @@
     </form>
 </div>
 
-    <!-- Add to Pool -->
+    <!-- Add to pool -->
 <div class="card">
     <h2>2. Ausgabe eintragen</h2>
     {% if people %}
@@ -69,7 +69,7 @@
     </div>
 </div>
 
-    <!-- Table -->
+    <!-- Expenses table -->
      <div class="card">
     <h2>Bisherige Ausgaben</h2>
 <table>
@@ -116,7 +116,7 @@
     </tbody>
 </table>
 </div>
-<!-- TABLE: Expenses per person with delete functionality -->
+<!-- Table: expenses per person with delete functionality -->
 <div class="card">
     <h2>Ausgaben pro Person</h2>
     <table>
@@ -141,14 +141,14 @@
     </table>
 </div>
 
-<!-- ADJUSTMENT: Who pays whom and how much -->
+<!-- Settlement: who owes whom and how much -->
 <div class="card">
     <h2>Wer schuldet wem wie viel?</h2>
     {% if settlement_list %}
         <ul class="ausgleich-list">
             {% for entry in settlement_list %}
                 <li class="ausgleich-item">
-                    <span><strong>{{ entry.von }}</strong> schuldet <strong>{{ entry.an }}</strong> <strong>{{ entry.betrag|floatformat:2 }} €</strong></span>
+                    <span><strong>{{ entry.from_person }}</strong> schuldet <strong>{{ entry.to_person }}</strong> <strong>{{ entry.amount|floatformat:2 }} €</strong></span>
                 </li>
             {% endfor %}
         </ul>

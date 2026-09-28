@@ -4,7 +4,7 @@ from .models import Topic, Person, Expense
 from .forms import TopicForm, PersonForm, ExpenseForm
 
 
-# Topic Displaying and creating new Topics
+# Display and create new topics.
 def topic_list(request):
     if request.method == 'POST':
         action = request.POST.get('action')
@@ -30,14 +30,14 @@ def topic_list(request):
     })
 
 
-themen_liste = topic_list
+topic_list_alias = topic_list
 
 
-# Show Details of a Topic
+# Show the details of a topic.
 def topic_detail(request, topic_id):
     topic = get_object_or_404(Topic, id=topic_id)
 
-    # --- Forms logic (POST) ---
+    # Form handling (POST requests).
     if request.method == 'POST':
         action = request.POST.get('action')
 
@@ -68,7 +68,7 @@ def topic_detail(request, topic_id):
 
         return redirect('topic_detail', topic_id=topic.id)
 
-    # --- Initialize Browser Interface (GET) ---
+    # Initialize the browser interface (GET requests).
     person_form = PersonForm()
     expense_form = ExpenseForm(thema=topic)
 
@@ -90,9 +90,7 @@ def topic_detail(request, topic_id):
         people_summary.append({
             'id': person.id,
             'name': person.name,
-            'ausgegeben': spent_amount,
             'spent_amount': spent_amount,
-            'saldo': balance,
             'balance': balance,
         })
 
@@ -111,10 +109,12 @@ def topic_detail(request, topic_id):
             break
 
         settlement_list.append({
+            'from_person': debtor['name'],
+            'to_person': creditor['name'],
+            'amount': round(amount, 2),
             'von': debtor['name'],
             'an': creditor['name'],
             'betrag': round(amount, 2),
-            'amount': round(amount, 2),
         })
 
         debtor['balance'] = round(debtor['balance'] + amount, 2)
@@ -142,27 +142,24 @@ def topic_detail(request, topic_id):
         'gesamtausgaben': total_expenses,
         'total_expenses': total_expenses,
         'per_person_share': per_person_share,
-        'per_person_share': per_person_share,
-        'personen_übersicht': people_summary,
-        'people_summary': people_summary,
-        'ausgleich_liste': settlement_list,
-        'settlement_list': settlement_list,
         'person_form': person_form,
         'ausgabe_form': expense_form,
         'expense_form': expense_form,
+        'people_summary': people_summary,
+        'settlement_list': settlement_list,
     })
 
 
-thema_detail = topic_detail
+topic_detail_alias = topic_detail
 
 
-# Change existing Spending
+# Edit an existing expense.
 def expense_edit(request, expense_id):
     expense = get_object_or_404(Expense, id=expense_id)
     topic = expense.thema
 
     if request.method == 'POST':
-        # Create Instance for updating already existing value
+        # Create an instance to update the existing value.
         form = ExpenseForm(request.POST, instance=expense, thema=topic)
         if form.is_valid():
             form.save()
@@ -179,4 +176,4 @@ def expense_edit(request, expense_id):
     })
 
 
-ausgabe_bearbeiten = expense_edit
+expense_edit_alias = expense_edit

@@ -1,5 +1,5 @@
 /* ==========================================
-   1. Zentriertes Layout & Grundlagen
+   1. Centered layout & basics
    ========================================== */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -11,7 +11,7 @@ body {
     line-height: 1.6;           /* Ausreichend Zeilenabstand */
 }
 
-/* Farbige Überschriften mit Abstand */
+/* Colored headings with spacing */
 h1 {
     color: #1c7ed6;
     margin-bottom: 24px;
@@ -39,7 +39,7 @@ p {
 }
 
 /* ==========================================
-   2. Tabellen mit hervorgehobenem Kopf
+   2. Tables with highlighted header
    ========================================== */
 table {
     width: 100%;
@@ -75,7 +75,7 @@ tbody tr:hover {
 }
 
 /* ==========================================
-   3. Buttons mit sichtbaren Umrandungen
+   3. Buttons with visible borders
    ========================================== */
 .btn {
     display: inline-flex;
@@ -105,7 +105,7 @@ tbody tr:hover {
     font-size: 13px;
 }
 
-/* Bearbeiten-Button (Gelb mit dunklem Rand) */
+/* Edit button (yellow with dark border) */
 .btn-warning {
     background-color: #fcc419;
     color: #212529;
@@ -116,7 +116,7 @@ tbody tr:hover {
     box-shadow: 0 6px 14px rgba(250, 176, 5, 0.4);
 }
 
-/* Löschen-Button (Rot mit dunklerem Rand) */
+/* Delete button (red with darker border) */
 .btn-danger {
     background-color: #ff6b6b;
     color: #ffffff;
@@ -127,7 +127,7 @@ tbody tr:hover {
     box-shadow: 0 6px 14px rgba(224, 49, 49, 0.4);
 }
 
-/* Primär-Button (Blau) */
+/* Primary button (blue) */
 .btn-primary {
     background-color: #1c7ed6;
     color: #ffffff;
@@ -149,7 +149,7 @@ tbody tr:hover {
 }
 
 /* ==========================================
-   4. Stat-Cards für die Übersicht
+   4. Stat cards for the overview
    ========================================== */
 .stats-grid {
     display: grid;
@@ -187,10 +187,10 @@ tbody tr:hover {
 }
 
 /* ==========================================
-   5. Formular-Styling & Eingabefelder
+   5. Form styling & input fields
    ========================================== */
 
-/* Formular-Gruppen mit klaren Abständen */
+/* Form groups with clear spacing */
 .form-group {
     margin-bottom: 18px;
 }
@@ -209,7 +209,7 @@ label {
     letter-spacing: normal;
 }
 
-/* Einheitliche Inputs & Select-Boxen */
+/* Consistent inputs & select boxes */
 input[type="text"],
 input[type="number"],
 select {
@@ -226,12 +226,12 @@ select {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-/* Platzhalter-Text dezent färben */
+/* Subtle placeholder text color */
 input::placeholder {
     color: #adb5bd;
 }
 
-/* Aktiver Fokus-Zustand beim Tippen / Auswählen */
+/* Active focus state while typing / selecting */
 input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus {
@@ -240,14 +240,14 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(28, 126, 214, 0.15);
 }
 
-/* Hover-Effekt für Eingabefelder */
+/* Hover effect for input fields */
 input[type="text"]:hover,
 input[type="number"]:hover,
 select:hover {
     border-color: #adb5bd;
 }
 
-/* Layout-Raster für mehrspaltige Formulare (z. B. Ausgabe eintragen) */
+/* Layout grid for multi-column forms (e.g. entering expenses) */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -256,10 +256,10 @@ select:hover {
 }
 
 /* ==========================================
-   6. Ausgleichszahlungen & Personen-Bilanz
+   6. Settlements & personal balance
    ========================================== */
 
-/* Ausgleichsliste */
+/* Settlement list */
 .ausgleich-list {
     list-style: none;
     padding: 0;
@@ -281,7 +281,7 @@ select:hover {
     color: #1971c2;
 }
 
-/* Tabellen-Hervorhebung für Saldo */
+/* Table highlighting for balance */
 .saldo-positiv {
     color: #2b8a3e;
     font-weight: 600;
@@ -293,10 +293,10 @@ select:hover {
 }
 
 /* ==========================================
-   7. Themen-Übersicht & Projektauswahl
+   7. Topic overview & project selection
    ========================================== */
 
-/* Raster für Themenkarten */
+/* Grid for topic cards */
 .topic-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -304,7 +304,7 @@ select:hover {
     margin-top: 20px;
 }
 
-/* Einzelne Karte für ein Thema */
+/* Single card for a topic */
 .topic-card-link {
     text-decoration: none;
     color: inherit;

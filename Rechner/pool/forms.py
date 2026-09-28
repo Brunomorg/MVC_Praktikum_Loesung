@@ -14,10 +14,10 @@ class TopicForm(forms.ModelForm):
         }
 
 
-ThemaForm = TopicForm
+TopicFormAlias = TopicForm
 
 
-# Form to create a new Person associated with a topic.
+# Form to create a new person associated with a topic.
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
@@ -30,7 +30,7 @@ class PersonForm(forms.ModelForm):
         }
 
 
-# Form to create a new spending associated with a topic and person.
+# Form to create a new expense associated with a topic and person.
 class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
@@ -48,7 +48,7 @@ class ExpenseForm(forms.ModelForm):
             }),
         }
 
-    # Filtering persons in the form
+    # Filter persons in the form.
     def __init__(self, *args, **kwargs):
         topic = kwargs.pop('thema', None)
         super().__init__(*args, **kwargs)
@@ -57,4 +57,4 @@ class ExpenseForm(forms.ModelForm):
             self.fields['person'].empty_label = "-- Person auswählen --"
 
 
-AusgabeForm = ExpenseForm
+ExpenseFormAlias = ExpenseForm
