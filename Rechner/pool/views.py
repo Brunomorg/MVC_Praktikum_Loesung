@@ -94,7 +94,6 @@ def topic_detail(request, topic_id):
             'spent_amount': spent_amount,
             'saldo': balance,
             'balance': balance,
-            'amount_due': abs(balance),
         })
 
     settlement_list = []
