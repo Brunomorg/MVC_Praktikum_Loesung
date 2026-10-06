@@ -11,7 +11,7 @@ class TopicListViewTest(TestCase):
         self.url = reverse('topics_list')
 
         # Create a test topic in the test database.
-        self.topic_1 = Topic.objects.create(titel="Sommerurlaub 2026")
+        self.topic_1 = Topic.objects.create(title="Sommerurlaub 2026")
 
     def test_topic_list_view_get(self):
         """Check whether the topic list loads and renders correctly (GET)."""
@@ -34,7 +34,7 @@ class TopicListViewTest(TestCase):
     def test_topic_creation_success_post(self):
         """Test successful creation of a new topic via POST."""
         post_data = {
-            'titel': 'Wohnung renovieren'
+            'title': 'Wohnung renovieren'
         }
 
         # Send a POST request to the view.
@@ -45,13 +45,13 @@ class TopicListViewTest(TestCase):
         self.assertRedirects(response, self.url)
 
         # 2. Check that the topic was actually saved in the test database.
-        self.assertTrue(Topic.objects.filter(titel='Wohnung renovieren').exists())
+        self.assertTrue(Topic.objects.filter(title='Wohnung renovieren').exists())
         self.assertEqual(Topic.objects.count(), 2)
 
     def test_topic_creation_invalid_post(self):
         """Test sending invalid form data (for example, an empty field)."""
         post_data = {
-            'titel': ''  # Empty string because the title is a required field in the model.
+            'title': ''  # Empty string because the title is a required field in the model.
         }
 
         response = self.client.post(self.url, data=post_data)
@@ -65,7 +65,7 @@ class TopicListViewTest(TestCase):
         # 3. The form in the context should contain validation errors.
         form = response.context['form']
         self.assertTrue(form.errors)
-        self.assertIn('titel', form.errors)
+        self.assertIn('title', form.errors)
 
     def test_topic_delete_post(self):
         """Test deleting an existing topic via POST."""

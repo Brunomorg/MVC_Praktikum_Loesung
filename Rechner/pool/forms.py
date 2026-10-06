@@ -5,16 +5,13 @@ from .models import Topic, Person, Expense
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ['titel']
+        fields = ['title']
         widgets = {
-            'titel': forms.TextInput(attrs={
+            'title': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Themenname (z. B. Urlaubsreise)'
             })
         }
-
-
-TopicFormAlias = TopicForm
 
 
 # Form to create a new person associated with a topic.
@@ -34,15 +31,15 @@ class PersonForm(forms.ModelForm):
 class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
-        fields = ['person', 'betrag', 'beschreibung']
+        fields = ['person', 'amount', 'description']
         widgets = {
             'person': forms.Select(attrs={'class': 'form-control'}),
-            'betrag': forms.NumberInput(attrs={
+            'amount': forms.NumberInput(attrs={
                 'class': 'form-control',
                 'step': '0.01',
                 'placeholder': '0.00'
             }),
-            'beschreibung': forms.TextInput(attrs={
+            'description': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'z. B. Einkaufen'
             }),
@@ -50,11 +47,8 @@ class ExpenseForm(forms.ModelForm):
 
     # Filter persons in the form.
     def __init__(self, *args, **kwargs):
-        topic = kwargs.pop('thema', None)
+        topic = kwargs.pop('topic', None)
         super().__init__(*args, **kwargs)
         if topic:
-            self.fields['person'].queryset = Person.objects.filter(thema=topic)
+            self.fields['person'].queryset = Person.objects.filter(topic=topic)
             self.fields['person'].empty_label = "-- Person auswählen --"
-
-
-ExpenseFormAlias = ExpenseForm

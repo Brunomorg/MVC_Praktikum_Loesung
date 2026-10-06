@@ -22,15 +22,11 @@ def topic_list(request):
     else:
         form = TopicForm()
 
-    topics = Topic.objects.all().order_by('-erstellt_am')
+    topics = Topic.objects.all().order_by('-created_at')
     return render(request, 'pool/themen_liste.html', {
-        'themen': topics,
         'topics': topics,
         'form': form,
     })
-
-
-topic_list_alias = topic_list
 
 
 # Show the details of a topic.
@@ -46,36 +42,36 @@ def topic_detail(request, topic_id):
                 person_form = PersonForm(request.POST)
                 if person_form.is_valid():
                     person = person_form.save(commit=False)
-                    person.thema = topic
+                    person.topic = topic
                     person.save()
 
             case 'add_expense':
-                expense_form = ExpenseForm(request.POST, thema=topic)
+                expense_form = ExpenseForm(request.POST, topic=topic)
                 if expense_form.is_valid():
                     expense = expense_form.save(commit=False)
-                    expense.thema = topic
+                    expense.topic = topic
                     expense.save()
 
             case 'delete_person':
                 person_id = request.POST.get('person_id')
                 if person_id:
-                    Person.objects.filter(id=person_id, thema=topic).delete()
+                    Person.objects.filter(id=person_id, topic=topic).delete()
 
             case 'delete_expense':
-                expense_id = request.POST.get('ausgabe_id')
+                expense_id = request.POST.get('expense_id')
                 if expense_id:
-                    Expense.objects.filter(id=expense_id, thema=topic).delete()
+                    Expense.objects.filter(id=expense_id, topic=topic).delete()
 
         return redirect('topic_detail', topic_id=topic.id)
 
     # Initialize the browser interface (GET requests).
     person_form = PersonForm()
-    expense_form = ExpenseForm(thema=topic)
+    expense_form = ExpenseForm(topic=topic)
 
-    people = Person.objects.filter(thema=topic)
-    expenses = Expense.objects.filter(thema=topic).select_related('person')
+    people = Person.objects.filter(topic=topic)
+    expenses = Expense.objects.filter(topic=topic).select_related('person')
 
-    total_expenses_amount = expenses.aggregate(Sum('betrag'))['betrag__sum']
+    total_expenses_amount = expenses.aggregate(Sum('amount'))['amount__sum']
     total_expenses = float(total_expenses_amount) if total_expenses_amount is not None else 0.0
 
     person_count = people.count()
@@ -83,7 +79,7 @@ def topic_detail(request, topic_id):
 
     people_summary = []
     for person in people:
-        person_expense_total = expenses.filter(person=person).aggregate(Sum('betrag'))['betrag__sum']
+        person_expense_total = expenses.filter(person=person).aggregate(Sum('amount'))['amount__sum']
         spent_amount = float(person_expense_total) if person_expense_total is not None else 0.0
         balance = spent_amount - per_person_share
 
@@ -112,9 +108,6 @@ def topic_detail(request, topic_id):
             'from_person': debtor['name'],
             'to_person': creditor['name'],
             'amount': round(amount, 2),
-            'von': debtor['name'],
-            'an': creditor['name'],
-            'betrag': round(amount, 2),
         })
 
         debtor['balance'] = round(debtor['balance'] + amount, 2)
@@ -133,47 +126,34 @@ def topic_detail(request, topic_id):
             creditors.sort(key=lambda item: item['balance'], reverse=True)
 
     return render(request, 'pool/thema_detail.html', {
-        'thema': topic,
         'topic': topic,
-        'personen': people,
         'people': people,
-        'ausgaben': expenses,
         'expenses': expenses,
-        'gesamtausgaben': total_expenses,
         'total_expenses': total_expenses,
         'per_person_share': per_person_share,
         'person_form': person_form,
-        'ausgabe_form': expense_form,
         'expense_form': expense_form,
         'people_summary': people_summary,
         'settlement_list': settlement_list,
     })
 
 
-topic_detail_alias = topic_detail
-
-
 # Edit an existing expense.
 def expense_edit(request, expense_id):
     expense = get_object_or_404(Expense, id=expense_id)
-    topic = expense.thema
+    topic = expense.topic
 
     if request.method == 'POST':
         # Create an instance to update the existing value.
-        form = ExpenseForm(request.POST, instance=expense, thema=topic)
+        form = ExpenseForm(request.POST, instance=expense, topic=topic)
         if form.is_valid():
             form.save()
             return redirect('topic_detail', topic_id=topic.id)
     else:
-        form = ExpenseForm(instance=expense, thema=topic)
+        form = ExpenseForm(instance=expense, topic=topic)
 
     return render(request, 'pool/ausgabe_bearbeiten.html', {
         'form': form,
-        'ausgabe': expense,
         'expense': expense,
-        'thema': topic,
         'topic': topic,
     })
-
-
-expense_edit_alias = expense_edit

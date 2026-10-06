@@ -19,8 +19,8 @@
             <input type="hidden" name="action" value="add_topic">
 
             <div class="form-group">
-                <label for="titel">Titel des Themas / Urlaubs</label>
-                <input type="text" id="titel" name="titel" placeholder="Eis Essen" required>
+                <label for="title">Titel des Themas / Urlaubs</label>
+                <input type="text" id="title" name="title" placeholder="Eis Essen" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Thema erstellen</button>
@@ -38,9 +38,9 @@
         <a href="{% url 'topic_detail' topic.id %}" class="topic-card-link">
             <div class="topic-card">
                 <div class="topic-card-content">
-                    <h3 class="topic-title">{{ topic.titel }}</h3>
+                    <h3 class="topic-title">{{ topic.title }}</h3>
                     <div class="topic-meta">
-                        Erstellt am: {{ topic.erstellt_am|date:"d.m.Y — H:i" }} Uhr
+                        Erstellt am: {{ topic.created_at|date:"d.m.Y — H:i" }} Uhr
                     </div>
                 </div>
 

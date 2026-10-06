@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <h1>{{ thema.titel }}</h1>
+    <h1>{{ topic.title }}</h1>
 
     <!-- Add person -->
     <div class="card">
@@ -38,11 +38,11 @@
             </div>
             <div class="form-group">
                 <label>Betrag (€):</label>
-                {{ expense_form.betrag }}
+                {{ expense_form.amount }}
             </div>
             <div class="form-group">
                 <label>Beschreibung:</label>
-                {{ expense_form.beschreibung }}
+                {{ expense_form.description }}
             </div>
             
             <button type="submit" class="btn btn-primary">Ausgabe eintragen</button>
@@ -86,9 +86,9 @@
         {% for expense in expenses %}
             <tr>
                 <td>{{ expense.person.name }}</td>
-                <td>{{ expense.betrag }} €</td>
-                <td>{{ expense.beschreibung }}</td>
-                <td>{{ expense.erstellt_am|date:"d.m.Y H:i" }}</td>
+                <td>{{ expense.amount }} €</td>
+                <td>{{ expense.description }}</td>
+                <td>{{ expense.created_at|date:"d.m.Y H:i" }}</td>
                 <td>
     <div class="action-group">
         <!-- Bearbeiten-Link -->
@@ -100,7 +100,7 @@
         <form method="POST" class="form-inline">
             {% csrf_token %}
             <input type="hidden" name="action" value="delete_expense">
-            <input type="hidden" name="ausgabe_id" value="{{ expense.id }}">
+            <input type="hidden" name="expense_id" value="{{ expense.id }}">
             <button type="submit" class="btn btn-danger btn-sm">
                 Löschen
             </button>
